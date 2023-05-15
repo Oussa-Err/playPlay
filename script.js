@@ -45,7 +45,7 @@ function quote() {
     const newQuote2 = document.createElement('p')
 
     newQuote1.textContent = randomQuote.quote
-    newQuote2.textContent = `- ${randomQuote.author}`
+    newQuote2.textContent = `-${randomQuote.author}`
     clearAll()
     quoteItem.appendChild(newQuote1)
     quoteItem.appendChild(newQuote2)
