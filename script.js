@@ -10,19 +10,11 @@ function clearAll() {
     riddle.innerHTML = ''
 };
 
-
-const data = {
-    memes,
-    jokes,
-    quotes,
-    riddles
-};
-
 function cal(len) {
     return Math.floor(Math.random() * len)
 }
 
-function getRandom() {
+function getRandom(type) {
     return data[type][cal(data[type].length)]
 }
 
@@ -53,49 +45,44 @@ function quote() {
     const newQuote2 = document.createElement('p')
 
     newQuote1.textContent = randomQuote.quote
-    newQuote2.textContent = randomQuote.author
+    newQuote2.textContent = `- ${randomQuote.author}`
     clearAll()
     quoteItem.appendChild(newQuote1)
     quoteItem.appendChild(newQuote2)
 };
 
 function riddle() {
-    const riddleItem = document.querySelector('.riddle')
     const randomRiddle = getRandom('riddles')
     // using destructuring assignment
-    const {questionRiddle, answerRiddle} = randomRiddle
-    
+    const {question, answer} = randomRiddle
+    const container = document.querySelector('.riddle')
     
     const questionElement = document.createElement('p')
-    questionElement.textContent = questionRiddle
+    questionElement.textContent = question
     
     const answerElement = document.createElement('p')
     answerElement.setAttribute('id', 'riddle-answer')
-    answerElement.textContent = answerRiddle
+    answerElement.textContent = answer
     answerElement.hidden = true
     
-
-    
     clearAll()
-    riddleItem.appendChild(questionElement)
-    riddleItem.appendChild(answerElement)
+    container.appendChild(questionElement)
+    container.appendChild(answerElement)
+  }
+  
 
+function answer() {
+    const container = document.querySelector('.riddle')
+    const riddle = container.querySelector('p')
+    const answer = container.querySelector('#riddle-answer')
     
-
-};
-
-function answer () {
-    const riddleItem = document.querySelector('.riddle')
-    const riddle = document.querySelector('p')
-    const answerRiddle = document.getElementById('#riddle-answer')
-
-    if (riddle && answerRiddle.hidden)
-        answerRiddle.hidden = false
-    else if (riddleItem && !answerRiddle.hidden)
-        alert('the answer is already revealed')
+    if (riddle && answer.hidden)
+      answer.hidden = false
+    else if (riddle && !answer.hidden)
+      alert('The answer is already revealed!')
     else
-        alert('there is no riddle to answer to')
-};
+      alert('There is no riddle to reveal the answer to!')
+  }
 
 
 
@@ -131,3 +118,10 @@ const jokes = ['This statement', 'Eight bytes walk into a bar.  The bartender as
 
 // Source: https://www.thecoderpedia.com/blog/programming-memes/, Reddit
 const memes = ['https://i.redd.it/a0v87gwzoge61.jpg', 'https://i.redd.it/q29egav34ee61.jpg', 'https://i.redd.it/iij16swxjie61.jpg', 'https://i.redd.it/vek7dm2hrge61.jpg', 'https://www.testbytes.net/wp-content/uploads/2019/06/Untitled-8.png', 'https://miro.medium.com/max/1000/0*Ua695vjzFHV6VNOX.png', 'https://pbs.twimg.com/media/EKkPagPXkAA__Qo.jpg', 'https://code-love.com/wp-content/uploads/2019/03/download.jpeg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Programmer-while-sleeping.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Evolution-of-Memory-Storage-1024x996.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Error-in-Code-896x1024.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Coding-Meme-Code-Comments-be-Like-925x1024.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Internet-Explorer-Joke-915x1024.jpg'];
+
+const data = {
+    memes,
+    jokes,
+    quotes,
+    riddles
+};
