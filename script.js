@@ -1,3 +1,13 @@
+const url = 'https://programming-memes-images.p.rapidapi.com/v1/memes';
+const options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': 'ac203088aemsh5a656a1d069e647p1bd6abjsn3039dfc6b69a',
+        'X-RapidAPI-Host': 'programming-memes-images.p.rapidapi.com'
+    }
+};
+
+
 function clearAll() {
     const meme = document.querySelector('.meme')
     const joke = document.querySelector('.joke')
@@ -18,20 +28,10 @@ function getRandom(type) {
     return data[type][cal(data[type].length)]
 }
 
-function showAmeme() {
-    const randomMeme = getRandom('memes')
-    const newMeme = document.createElement('img')
-
-    newMeme.setAttribute('src', randomMeme)
-
-    clearAll()
-    document.querySelector('.meme').appendChild(newMeme)
-};
-
 function joke() {
     const jokeItem = document.querySelector('.joke')
     const randomJoke = getRandom('jokes')
-    const newJoke  = document.createElement('p')
+    const newJoke = document.createElement('p')
 
     newJoke.textContent = randomJoke
     clearAll()
@@ -53,38 +53,60 @@ function quote() {
 
 function riddle() {
     const randomRiddle = getRandom('riddles')
-    // using destructuring assignment
-    const {question, answer} = randomRiddle
+    // destructuring assignment
+    const { question, answer } = randomRiddle
     const container = document.querySelector('.riddle')
-    
+
     const questionElement = document.createElement('p')
     questionElement.textContent = question
-    
+
     const answerElement = document.createElement('p')
     answerElement.setAttribute('id', 'riddle-answer')
     answerElement.textContent = answer
     answerElement.hidden = true
-    
+
     clearAll()
     container.appendChild(questionElement)
     container.appendChild(answerElement)
-  }
-  
+}
+
 
 function answer() {
     const container = document.querySelector('.riddle')
     const riddle = container.querySelector('p')
     const answer = container.querySelector('#riddle-answer')
-    
+
     if (riddle && answer.hidden)
-      answer.hidden = false
+        answer.hidden = false
     else if (riddle && !answer.hidden)
-      alert('The answer is already revealed!')
+        alert('The answer is already revealed!')
     else
-      alert('There is no riddle to reveal the answer to!')
-  }
+        alert('There is no riddle to reveal the answer to!')
+}
 
 
+// Function to fetch and display memes
+async function loadMeme() {
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        // Get the memes-container and create an image element
+        const memesContainer = document.getElementById('memes-container');
+        const memeImage = document.createElement('img');
+
+        // Set the source of the image to the meme URL
+        memeImage.src = data.url;
+
+        // Clear the previous meme (if any) and append the new meme
+        memesContainer.innerHTML = '';
+        memesContainer.appendChild(memeImage);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+loadMeme()
 
 
 // Source: https://www.rd.com/list/challenging-riddles/
@@ -99,7 +121,7 @@ const riddles = [
 
 // source: https://www.goodreads.com/quotes/tag/programming
 const quotes = [
-    { quote: 'Programs must be written for people to read, and only incidentally for machines to execute.', author: 'Harold Abelson'},
+    { quote: 'Programs must be written for people to read, and only incidentally for machines to execute.', author: 'Harold Abelson' },
     { quote: 'Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.', author: 'Rick Cook' },
     { quote: 'Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live', author: 'John Woods' },
     { quote: 'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.', author: 'Martin Fowler' },
@@ -116,11 +138,9 @@ const quotes = [
 // Sourced from: http://www.devtopics.com/best-programming-jokes/
 const jokes = ['This statement', 'Eight bytes walk into a bar.  The bartender asks, “Can I get you anything?” “Yeah,” reply the bytes.  “Make us a double.”', 'There are only 10 kinds of people in this world: those who know binary and those who don’t.', 'All programmers are playwrights, and all computers are lousy actors.', 'Have you heard about the new Cray super computer?  It’s so fast, it executes an infinite loop in 6 seconds.', 'The generation of random numbers is too important to be left to chance.', 'Debugging: Removing the needles from the haystack.', '“Debugging” is like being the detective in a crime drama where you are also the murderer.', 'There are two ways to write error-free programs; only the third one works.', 'The best thing about a Boolean is even if you are wrong, you are only off by a bit.'];
 
-// Source: https://www.thecoderpedia.com/blog/programming-memes/, Reddit
-const memes = ['https://i.redd.it/a0v87gwzoge61.jpg', 'https://i.redd.it/q29egav34ee61.jpg', 'https://i.redd.it/iij16swxjie61.jpg', 'https://i.redd.it/vek7dm2hrge61.jpg', 'https://www.testbytes.net/wp-content/uploads/2019/06/Untitled-8.png', 'https://miro.medium.com/max/1000/0*Ua695vjzFHV6VNOX.png', 'https://pbs.twimg.com/media/EKkPagPXkAA__Qo.jpg', 'https://code-love.com/wp-content/uploads/2019/03/download.jpeg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Programmer-while-sleeping.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Evolution-of-Memory-Storage-1024x996.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Error-in-Code-896x1024.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Coding-Meme-Code-Comments-be-Like-925x1024.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Internet-Explorer-Joke-915x1024.jpg'];
+// const memes = ['https://i.redd.it/a0v87gwzoge61.jpg', 'https://i.redd.it/q29egav34ee61.jpg', 'https://i.redd.it/iij16swxjie61.jpg', 'https://i.redd.it/vek7dm2hrge61.jpg', 'https://www.testbytes.net/wp-content/uploads/2019/06/Untitled-8.png', 'https://miro.medium.com/max/1000/0*Ua695vjzFHV6VNOX.png', 'https://pbs.twimg.com/media/EKkPagPXkAA__Qo.jpg', 'https://code-love.com/wp-content/uploads/2019/03/download.jpeg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Programmer-while-sleeping.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Evolution-of-Memory-Storage-1024x996.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Programming-Memes-Error-in-Code-896x1024.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Coding-Meme-Code-Comments-be-Like-925x1024.jpg', 'https://www.thecoderpedia.com/wp-content/uploads/2020/06/Internet-Explorer-Joke-915x1024.jpg'];
 
 const data = {
-    memes,
     jokes,
     quotes,
     riddles
