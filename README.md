@@ -1,3 +1,7 @@
+# Meme Generator Website
+
+Discover and share hilarious programming memes with a single click! This website is built whit HTML, CSS, and Vanilla JavaScript and powered by rapid api.
+
 # playPlay
 
 --> https://oussa-err.github.io/playPlay/
@@ -17,5 +21,4 @@ if you have a suggestion that would make this better, please fork the repo and c
 
 ## Contact
 
-- GitHub Repository: https://github.com/Oussa-Err/improved-manoeuvre
 - email:    mustachgata@gmail.com
