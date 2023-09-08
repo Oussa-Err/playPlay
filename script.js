@@ -6,10 +6,31 @@ const options = {
         'X-RapidAPI-Host': 'programming-memes-images.p.rapidapi.com'
     }
 };
+// Function to fetch and display memes
+
+async function loadMeme() {
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log(result);
+
+        // Get the memes-container
+        const memesContainer = document.getElementById('memes-container');
+        const randomIndex = Math.floor(Math.random() * result.length);
+        // Use map to create an array of image elements
+        const memeImage = document.createElement('img')
+        memeImage.src = result[randomIndex].image
+        
+        clearAll();
+        memesContainer.appendChild(memeImage);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 
 function clearAll() {
-    const meme = document.querySelector('.meme')
+    const meme = document.getElementById('memes-container')
     const joke = document.querySelector('.joke')
     const quote = document.querySelector('.quote')
     const riddle = document.querySelector('.riddle')
@@ -86,27 +107,9 @@ function answer() {
 
 
 // Function to fetch and display memes
-async function loadMeme() {
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
 
-        // Get the memes-container and create an image element
-        const memesContainer = document.getElementById('memes-container');
-        const memeImage = document.createElement('img');
 
-        // Set the source of the image to the meme URL
-        memeImage.src = data.url;
-
-        // Clear the previous meme (if any) and append the new meme
-        memesContainer.innerHTML = '';
-        memesContainer.appendChild(memeImage);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-loadMeme()
+// loadMeme()
 
 
 // Source: https://www.rd.com/list/challenging-riddles/
