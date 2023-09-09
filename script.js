@@ -2,12 +2,13 @@ const url = 'https://programming-memes-images.p.rapidapi.com/v1/memes';
 const options = {
     method: 'GET',
     headers: {
-        'X-RapidAPI-Key': RAPID_API_KEY,
+        'X-RapidAPI-Key': `bearer ${RAPID_API_KEY}` || 'ac203088aemsh5a656a1d069e647p1bd6abjsn3039dfc6b69a',
         'X-RapidAPI-Host': 'programming-memes-images.p.rapidapi.com'
     }
 };
-// Function to fetch and display memes
 
+
+// Function to fetch and display memes
 async function loadMeme() {
     try {
         const response = await fetch(url, options);
@@ -41,19 +42,12 @@ function clearAll() {
     riddle.innerHTML = ''
 };
 
-function cal(len) {
-    return Math.floor(Math.random() * len)
-}
-
-function getRandom(type) {
-    return data[type][cal(data[type].length)]
-}
 
 function joke() {
     const jokeItem = document.querySelector('.joke')
     const randomJoke = getRandom('jokes')
     const newJoke = document.createElement('p')
-
+    
     newJoke.textContent = randomJoke
     clearAll()
     jokeItem.appendChild(newJoke)
@@ -77,15 +71,15 @@ function riddle() {
     // destructuring assignment
     const { question, answer } = randomRiddle
     const container = document.querySelector('.riddle')
-
+    
     const questionElement = document.createElement('p')
     questionElement.textContent = question
-
+    
     const answerElement = document.createElement('p')
     answerElement.setAttribute('id', 'riddle-answer')
     answerElement.textContent = answer
     answerElement.hidden = true
-
+    
     clearAll()
     container.appendChild(questionElement)
     container.appendChild(answerElement)
@@ -98,11 +92,11 @@ function answer() {
     const answer = container.querySelector('#riddle-answer')
 
     if (riddle && answer.hidden)
-        answer.hidden = false
+    answer.hidden = false
     else if (riddle && !answer.hidden)
-        alert('The answer is already revealed!')
+    alert('The answer is already revealed!')
     else
-        alert('There is no riddle to reveal the answer to!')
+    alert('There is no riddle to reveal the answer to!')
 }
 
 
@@ -111,8 +105,14 @@ function answer() {
 
 // loadMeme()
 
-
 // Source: https://www.rd.com/list/challenging-riddles/
+function cal(len) {
+    return Math.floor(Math.random() * len)
+}
+
+function getRandom(type) {
+    return data[type][cal(data[type].length)]
+}
 const riddles = [
     { question: 'I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?', answer: 'An echo' },
     { question: 'You measure my life in hours and I serve you by expiring. I’m quick when I’m thin and slow when I’m fat. The wind is my enemy. ', answer: 'A Candle' },
