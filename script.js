@@ -15,10 +15,8 @@ async function loadMeme() {
         const result = await response.json();
         console.log(result);
 
-        // Get the memes-container
         const memesContainer = document.getElementById('memes-container');
         const randomIndex = Math.floor(Math.random() * result.length);
-        // Use map to create an array of image elements
         const memeImage = document.createElement('img')
         memeImage.src = result[randomIndex].image
         
@@ -100,12 +98,6 @@ function answer() {
 }
 
 
-// Function to fetch and display memes
-
-
-// loadMeme()
-
-// Source: https://www.rd.com/list/challenging-riddles/
 function cal(len) {
     return Math.floor(Math.random() * len)
 }
