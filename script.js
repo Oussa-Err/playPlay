@@ -1,3 +1,4 @@
+
 const url = 'https://programming-memes-images.p.rapidapi.com/v1/memes';
 const options = {
     method: 'GET',
