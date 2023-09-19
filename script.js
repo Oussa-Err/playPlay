@@ -66,7 +66,7 @@ function quote() {
 
 function riddle() {
     const randomRiddle = getRandom('riddles')
-    // destructuring assignment
+    // destructuring assignment  
     const { question, answer } = randomRiddle
     const container = document.querySelector('.riddle')
     
