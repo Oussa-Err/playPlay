@@ -4,7 +4,7 @@ Discover and share hilarious programming memes with a single click! This website
 
 # playPlay
 
---> https://oussa-err.github.io/playPlay/
+--> https://playplay.netlify.app/
 
 ## Contributing
 
