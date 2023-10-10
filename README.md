@@ -1,5 +1,7 @@
 # Meme Generator Website
 
+![](./playPlay-screenshot.png)
+
 Discover and share hilarious programming memes with a single click! This website is built whit HTML, CSS, and Vanilla JavaScript and powered by rapid api.
 
 # playPlay
